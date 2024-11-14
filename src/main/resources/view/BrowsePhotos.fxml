@@ -4,18 +4,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.BrowseAlbumController">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.BrowseAlbumController" spacing="10" alignment="CENTER">
     <children >
         <Label fx:id="albumName"/>
-        <HBox>
+        
+        <HBox spacing="10" alignment="CENTER">
             <children>
-                <VBox>
+                <VBox spacing="10">
                     <children>
                         <Label fx:id="nameL"/>
                         <ImageView fx:id="imageL"/>
                     </children>
                 </VBox>
-                <VBox>
+                <VBox spacing="10">
                     <children>
                         <Label fx:id="nameR"/>
                         <ImageView fx:id="imageR" />
@@ -26,7 +27,7 @@
 
         <Label fx:id="progression"/>
         
-        <HBox>
+        <HBox spacing="10" alignment="CENTER">
             <children>
                 <Button fx:id="start" text="Start" onAction="#handleStart"/>
                 <Button fx:id="before" text="Before" onAction="#handleBefore"/>

@@ -13,23 +13,21 @@ public class OverviewController implements ObserverInterface {
     
     private Album album;
 
+    public OverviewController() {}
+
     public OverviewController(Album album){
         this.album = album;
     }
 
-    public void initialize() {
-        if (flowPane == null) {
-            System.err.println("FlowPane is null!");
-        }
-    }
-
     public void update() {
-        if (flowPane != null){
-            flowPane.getChildren().clear();
+        flowPane.getChildren().clear();
 
-            for (Photo photo : album.getPhotos()){
-                flowPane.getChildren().add(new ImageView(photo.getImage()));
-            }
+        for (Photo photo : album.getPhotos()){
+            ImageView img = new ImageView(photo.getImage());
+            img.setPreserveRatio(true);
+            img.setFitWidth(300);
+
+            flowPane.getChildren().add(img);
         }
         
     }

@@ -22,6 +22,8 @@ public class BrowseAlbumController implements ObservableInterface {
     private List<ObserverInterface> obs = new ArrayList<>();
     private Album album;
 
+    public BrowseAlbumController(){}
+
     public BrowseAlbumController(Album album){
         this.album = album;
     }

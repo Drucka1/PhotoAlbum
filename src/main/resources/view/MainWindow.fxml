@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane  xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.MainWindowController">
-    <center>
-        <fx:include source="BrowsePhotos.fxml"/>
-    </center>
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <left>
         <fx:include source="Overview.fxml"/>
     </left>
-    <right>
-        <fx:include source="Repository.fxml"/>
-    </right>
+
+    <center>
+        <fx:include source="BrowsePhotos.fxml"/>
+    </center>
+    
+    
 </BorderPane>

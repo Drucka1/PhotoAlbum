@@ -25,26 +25,30 @@ public class Main extends Application {
             System.err.println("Could not find .fxml");
             System.exit(1);
         }
+        
+
+        MainWindowController mw = new MainWindowController();
+        OverviewController oc = new OverviewController(album);
+        BrowseAlbumController ba = new BrowseAlbumController(album);
+        ba.addObserver(oc);
+
+        loader.setControllerFactory(controllerClass -> {
+            if (controllerClass.equals(MainWindowController.class)) return mw;
+            else if (controllerClass.equals(OverviewController.class)) return oc;
+            else if (controllerClass.equals(BrowseAlbumController.class)) return ba;
+            return null; 
+        });
+
+        
         loader.setLocation(fxmlURL);
-        MainWindowController main = new MainWindowController(album);
-        OverviewController overview = new OverviewController(album);
-        BrowseAlbumController browse = new BrowseAlbumController(album);
-
-        browse.addObserver(overview);
-
-        loader.setControllerFactory(ic -> {
-            if (ic.equals(album.controleur.MainWindowController.class)) return main;
-            if (ic.equals(album.controleur.OverviewController.class)) return overview;
-            if (ic.equals(album.controleur.BrowseAlbumController.class)) return browse;
-            return null ;
-            });
-
-
         Parent root = loader.load();
+    
+        
 
-        Scene scene = new Scene(root, 1200, 800);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
