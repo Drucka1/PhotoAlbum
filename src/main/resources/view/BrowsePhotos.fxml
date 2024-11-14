@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.BrowseAlbumController">
+    <children >
+        <Label fx:id="albumName"/>
+        <HBox>
+            <children>
+                <VBox>
+                    <children>
+                        <Label fx:id="nameL"/>
+                        <ImageView fx:id="imageL"/>
+                    </children>
+                </VBox>
+                <VBox>
+                    <children>
+                        <Label fx:id="nameR"/>
+                        <ImageView fx:id="imageR" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <Label fx:id="progression"/>
+        
+        <HBox>
+            <children>
+                <Button fx:id="start" text="Start" onAction="#handleStart"/>
+                <Button fx:id="before" text="Before" onAction="#handleBefore"/>
+                <Button fx:id="after" text="After" onAction="#handleAfter"/>
+                <Button fx:id="end" text="End" onAction="#handleEnd"/>
+                <Button fx:id="add" text="Add" onAction="#handleAdd"/>
+                <Button fx:id="del" text="Del" onAction="#handleDel"/>
+            </children>
+        </HBox>
+        
+    </children>
+</VBox>
