@@ -35,7 +35,7 @@ public class RepositoryController {
 
             ImageView imageView = new ImageView(new Image(imagePath));
             imageView.setPreserveRatio(true);
-            imageView.setFitWidth(300);
+            imageView.setFitWidth(140);
 
             flowPane.getChildren().add(imageView);
         }

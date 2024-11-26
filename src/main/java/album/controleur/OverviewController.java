@@ -28,7 +28,7 @@ public class OverviewController implements ObserverInterface {
 
             ImageView img = new ImageView(new Image(page.getLeft().getImagePath()));
             img.setPreserveRatio(true);
-            img.setFitWidth(300);
+            img.setFitWidth(280);
 
             flowPane.getChildren().add(new Label(page.getLeft().getName()));
             flowPane.getChildren().add(img);
@@ -36,7 +36,7 @@ public class OverviewController implements ObserverInterface {
             if (page.getRight() != null){
                 img = new ImageView(new Image(page.getRight().getImagePath()));
                 img.setPreserveRatio(true);
-                img.setFitWidth(300);
+                img.setFitWidth(280);
 
                 flowPane.getChildren().add(new Label(page.getRight().getName()));
                 flowPane.getChildren().add(img);

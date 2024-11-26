@@ -57,5 +57,13 @@ public class Album {
     public String getName() {
         return name;
     }
+    
+    public int size(){
+        return pages.size();
+    }
+
+    public int currentIndex(){
+        return currentPageIndex;
+    }
 
 }

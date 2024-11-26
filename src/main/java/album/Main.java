@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Album album = new Album("My Album");
+        Album album = albumTest();
         FXMLLoader loader = new FXMLLoader();
 
         URL fxmlURL = getClass().getResource("/view/MainWindow.fxml");
@@ -56,6 +56,18 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    private Album albumTest(){
+        Album album = new Album("My Album");
+        album.addPhoto(new Photo("Left Page 1", "/images/test0.jpeg")); 
+        album.addPhoto(new Photo("Right Page 1", "/images/test8.png"));
+        album.addPhoto(new Photo("Left Page 2", "/images/test2.jpg"));
+        album.addPhoto(new Photo("Right Page 2", "/images/test5.png"));
+        album.addPhoto(new Photo("Left Page 3", "/images/test7.png")); 
+        album.addPhoto(new Photo("Right Page 3", "/images/test9.png"));
+        return album;
+
     }
 
 }

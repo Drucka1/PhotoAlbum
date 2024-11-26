@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.OverviewController">
-    <Label text="Overview"/>
-    <ScrollPane fitToWidth="true" maxWidth="350" >
-        <content >
-            <FlowPane fx:id="flowPane" hgap="10" vgap="10" alignment="CENTER"/>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.OverviewController" alignment="CENTER">
+    <Label text="Overview" style="-fx-font-size: 20px;"/>
+    <ScrollPane fitToWidth="true" maxWidth="300">
+        <content > 
+            <FlowPane fx:id="flowPane" hgap="10" vgap="10" alignment="CENTER" maxWidth="280"/>
         </content>
     </ScrollPane>
     <Button text="All"/>

@@ -7,7 +7,6 @@ import album.Album;
 import album.ObservableInterface;
 import album.ObserverInterface;
 import album.Page;
-import album.Photo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -44,16 +43,10 @@ public class BrowseAlbumController implements ObservableInterface {
 
     @FXML
     public void initialize() {
-        album.addPhoto(new Photo("Left Page 1", "/images/test0.jpeg")); 
-        album.addPhoto(new Photo("Right Page 1", "/images/test8.png"));
-        album.addPhoto(new Photo("Left Page 2", "/images/test2.jpg"));
-        album.addPhoto(new Photo("Right Page 2", "/images/test5.png"));
-        album.addPhoto(new Photo("Left Page 3", "/images/test7.png")); 
-        album.addPhoto(new Photo("Right Page 3", "/images/test9.png"));
         albumName.setText(album.getName());
-
-        notifyObserver();
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         refresh();
+        notifyObserver();
     }
 
     private void refresh() {
@@ -70,24 +63,28 @@ public class BrowseAlbumController implements ObservableInterface {
     @FXML 
     public void handleStart() {
         album.firstPage();
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         refresh();
     }
 
     @FXML 
     public void handleBefore() {
         album.previousPage();
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         refresh();
     }
 
     @FXML 
     public void handleAfter() {
         album.nextPage();
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         refresh();
     }
 
     @FXML 
     public void handleEnd() {
         album.lastPage();
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         refresh();
     }
 
