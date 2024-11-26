@@ -26,7 +26,6 @@ public class Main extends Application {
             System.exit(1);
         }
         
-
         MainWindowController mw = new MainWindowController();
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);

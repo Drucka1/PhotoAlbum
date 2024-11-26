@@ -1,15 +1,13 @@
 package album;
 
-import javafx.scene.image.Image;
-
 public class Photo {
 
     private String name;
-    private Image image;
+    private String imagePath;
 
     public Photo(String name, String imagePath) {
         this.name = name;
-        this.image = new Image(getClass().getResource(imagePath).toExternalForm());
+        this.imagePath = imagePath;
     }
 
     public String getName() {
@@ -20,12 +18,12 @@ public class Photo {
         this.name = name;
     }
 
-    public Image getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 

@@ -10,13 +10,13 @@
         
         <HBox spacing="10" alignment="CENTER">
             <children>
-                <VBox spacing="10">
+                <VBox spacing="10" alignment="TOP_CENTER">
                     <children>
-                        <Label fx:id="nameL"/>
+                        <Label fx:id="nameL" />
                         <ImageView fx:id="imageL"/>
                     </children>
                 </VBox>
-                <VBox spacing="10">
+                <VBox spacing="10" alignment="TOP_CENTER">
                     <children>
                         <Label fx:id="nameR"/>
                         <ImageView fx:id="imageR" />

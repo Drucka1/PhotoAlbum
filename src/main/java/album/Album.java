@@ -1,34 +1,41 @@
 package album;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Album {
 
     private String name; 
-    private List<Photo> photos;
+    private LinkedList<Page> pages;
     private int currentPageIndex;
 
     public Album(String name) {
         this.name = name;
-        this.photos = new ArrayList<>();
+        this.pages = new LinkedList<Page>();
         this.currentPageIndex = 0;
     }
 
-    public void addPhoto(String name,String img) {
-        photos.add(new Photo(name,img));
+    public void addPhoto(Photo photo) {
+        if (pages.size() > 0 && pages.getLast().getRight() == null){
+            pages.getLast().setRight(photo);
+        }
+        else pages.addLast(new Page(photo));
     }
 
-    public Photo getCurrentPhoto() {
-        return photos.get(currentPageIndex);
+    public void addPages(Page page) {
+        pages.addLast(page);
     }
 
-    public List<Photo> getPhotos() {
-        return this.photos;
+    public Page getCurrentPage() {
+        return pages.get(currentPageIndex);
+    }
+
+    public List<Page> getPages() {
+        return this.pages;
     }
 
     public void nextPage() {
-        if (currentPageIndex < photos.size() - 1) {
+        if (currentPageIndex < pages.size() - 1) {
             currentPageIndex++;
         }
     }
@@ -44,14 +51,11 @@ public class Album {
     }
 
     public void lastPage() {
-        currentPageIndex = photos.size() - 1;
+        currentPageIndex = pages.size() - 1;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPagesCount() {
-        return photos.size();
-    }
 }

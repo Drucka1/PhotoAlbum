@@ -6,9 +6,11 @@ import java.util.List;
 import album.Album;
 import album.ObservableInterface;
 import album.ObserverInterface;
+import album.Page;
 import album.Photo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BrowseAlbumController implements ObservableInterface {
@@ -22,7 +24,9 @@ public class BrowseAlbumController implements ObservableInterface {
     private List<ObserverInterface> obs = new ArrayList<>();
     private Album album;
 
-    public BrowseAlbumController(){}
+    public BrowseAlbumController(){
+        this.album = new Album(null);
+    }
 
     public BrowseAlbumController(Album album){
         this.album = album;
@@ -40,57 +44,51 @@ public class BrowseAlbumController implements ObservableInterface {
 
     @FXML
     public void initialize() {
-        album.addPhoto("Left Page 1", "/images/test.jpeg"); 
-        album.addPhoto("Right Page 1", "/images/test2.jpg");
-        album.addPhoto("Left Page 2", "/images/test2.jpg");
-        album.addPhoto("Right Page 2", "/images/test.jpeg");
-        album.addPhoto("Left Page 3", "/images/test.jpeg"); 
-        album.addPhoto("Right Page 3", "/images/test2.jpg");
+        album.addPhoto(new Photo("Left Page 1", "/images/test.jpeg")); 
+        album.addPhoto(new Photo("Right Page 1", "/images/test2.jpg"));
+        album.addPhoto(new Photo("Left Page 2", "/images/test2.jpg"));
+        album.addPhoto(new Photo("Right Page 2", "/images/test.jpeg"));
+        album.addPhoto(new Photo("Left Page 3", "/images/test.jpeg")); 
+        album.addPhoto(new Photo("Right Page 3", "/images/test2.jpg"));
+        albumName.setText(album.getName());
 
         notifyObserver();
-        update();
+        refresh();
     }
 
-    private void update() {
-        Photo currentPhoto = album.getCurrentPhoto();
-        nameL.setText(currentPhoto.getName());
-        imageL.setImage(currentPhoto.getImage());
+    private void refresh() {
+        Page currentPage = album.getCurrentPage();
+        nameL.setText(currentPage.getLeft().getName());
+        imageL.setImage(new Image(currentPage.getLeft().getImagePath()));
 
-        album.nextPage();
-        Photo nextPhoto = album.getCurrentPhoto();
-        if (nextPhoto != currentPhoto) {
-            nameR.setText(nextPhoto.getName());
-            imageR.setImage(nextPhoto.getImage());
+        if (currentPage.getRight() != null) {
+            nameR.setText(currentPage.getRight().getName());
+            imageR.setImage(new Image(currentPage.getRight().getImagePath()));
         }
-        else {
-            nameR.setText("");
-            imageR.setImage(null);
-        }
-        album.previousPage();
     }
 
     @FXML 
     public void handleStart() {
         album.firstPage();
-        update();
+        refresh();
     }
 
     @FXML 
     public void handleBefore() {
         album.previousPage();
-        update();
+        refresh();
     }
 
     @FXML 
     public void handleAfter() {
         album.nextPage();
-        update();
+        refresh();
     }
 
     @FXML 
     public void handleEnd() {
         album.lastPage();
-        update();
+        refresh();
     }
 
     @FXML 

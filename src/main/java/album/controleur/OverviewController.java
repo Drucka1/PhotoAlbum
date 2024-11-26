@@ -2,8 +2,10 @@ package album.controleur;
 
 import album.Album;
 import album.ObserverInterface;
-import album.Photo;
+import album.Page;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
@@ -22,12 +24,24 @@ public class OverviewController implements ObserverInterface {
     public void update() {
         flowPane.getChildren().clear();
 
-        for (Photo photo : album.getPhotos()){
-            ImageView img = new ImageView(photo.getImage());
+        for (Page page : album.getPages()){
+
+            ImageView img = new ImageView(new Image(page.getLeft().getImagePath()));
             img.setPreserveRatio(true);
             img.setFitWidth(300);
 
+            flowPane.getChildren().add(new Label(page.getLeft().getName()));
             flowPane.getChildren().add(img);
+
+            if (page.getRight() != null){
+                img = new ImageView(new Image(page.getRight().getImagePath()));
+                img.setPreserveRatio(true);
+                img.setFitWidth(300);
+
+                flowPane.getChildren().add(new Label(page.getRight().getName()));
+                flowPane.getChildren().add(img);
+            }
+            
         }
         
     }

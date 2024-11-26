@@ -1,0 +1,20 @@
+@startuml ALBUM
+
+class Photo {
+    - name : String 
+    - image : Image
+}
+
+class Album {
+    - name : String 
+}
+
+class Page 
+class Repository {
+    - Collection<String> paths;
+}
+
+Album  "1" -- "*" Page
+Page "1" -- "2" Photo
+
+@enduml
