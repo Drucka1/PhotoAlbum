@@ -16,6 +16,12 @@ public class RepositoryController {
     @FXML private FlowPane flowPane;
     private String directoryPath;
 
+    public RepositoryController(){}
+
+    public RepositoryController(String directoryPath){
+        this.directoryPath = directoryPath;
+    }
+
     @FXML
     public void initialize() {
         if (directoryPath != null) refresh();
@@ -25,7 +31,13 @@ public class RepositoryController {
     public void refresh(){
         flowPane.getChildren().clear();
         for (File image : getImagesFromDirectory()){
-            flowPane.getChildren().add(new ImageView(new Image(image.getPath())));
+            String imagePath = image.toURI().toString(); 
+
+            ImageView imageView = new ImageView(new Image(imagePath));
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(300);
+
+            flowPane.getChildren().add(imageView);
         }
     }
 

@@ -12,9 +12,9 @@
         <fx:include source="BrowsePhotos.fxml"/>
     </center>
 
-    <!--<right>
+    <right>
         <fx:include source="Repository.fxml"/>
-    </right>-->
+    </right>
     
     
 </BorderPane>

@@ -12,6 +12,7 @@ import java.net.URL;
 import album.controleur.BrowseAlbumController;
 import album.controleur.MainWindowController;
 import album.controleur.OverviewController;
+import album.controleur.RepositoryController;
 
 public class Main extends Application {
 
@@ -29,12 +30,14 @@ public class Main extends Application {
         MainWindowController mw = new MainWindowController();
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
+        RepositoryController rc = new RepositoryController("/home/clem/TN/2A/PCD/lab2-e4206u/src/main/resources/images/");
         ba.addObserver(oc);
 
         loader.setControllerFactory(controllerClass -> {
             if (controllerClass.equals(MainWindowController.class)) return mw;
             else if (controllerClass.equals(OverviewController.class)) return oc;
             else if (controllerClass.equals(BrowseAlbumController.class)) return ba;
+            else if (controllerClass.equals(RepositoryController.class)) return rc;
             return null; 
         });
 
