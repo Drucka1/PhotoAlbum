@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.AccueilController">
+    <center>
+        <HBox>
+            <children>
+                <Label fx:id="label"/>
+                <Button fx:id="button" text="Go" layoutX="100" layoutY="150" onAction="#gotoCreation"/>
+            </children>
+        </HBox>
+    </center> 
+</BorderPane>

@@ -17,4 +17,20 @@ class Repository {
 Album  "1" -- "*" Page
 Page "1" -- "2" Photo
 
+class Configuration {
+    Stage primaryStage
+}
+
+Configuration o--> CreationScene
+Configuration o--> Scene
+
+class Scene 
+
+class CreationScene extends Scene {
+    String directoyPath
+}
+
+CreationScene o-> Album
+CreationScene o--> Repository
+
 @enduml
