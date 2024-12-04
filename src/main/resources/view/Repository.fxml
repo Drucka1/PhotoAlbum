@@ -12,6 +12,9 @@
             <FlowPane fx:id="flowPane" hgap="10" vgap="10" alignment="CENTER"/>
         </content>
     </ScrollPane>
-    <Button fx:id="refresh" text="Refresh" onAction="#refresh"/>
-    <Button fx:id="directory" text="Directory" onAction="#changeDirectory"/>
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="refresh" text="Refresh" onAction="#refresh"/>
+        <Button fx:id="directory" text="Change Directory" onAction="#changeDirectory"/>
+    </HBox>
+    
 </VBox>
