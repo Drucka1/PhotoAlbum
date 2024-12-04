@@ -25,8 +25,7 @@ public class MainWindowController {
 
         Stage stage = (Stage) acceuil.getScene().getWindow();  
         
-        stage.setScene(scene);
-        
+        stage.setScene(scene);  
     }
 
 }
