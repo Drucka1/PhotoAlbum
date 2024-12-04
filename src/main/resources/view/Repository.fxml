@@ -13,4 +13,5 @@
         </content>
     </ScrollPane>
     <Button fx:id="refresh" text="Refresh" onAction="#refresh"/>
+    <Button fx:id="directory" text="Directory" onAction="#changeDirectory"/>
 </VBox>

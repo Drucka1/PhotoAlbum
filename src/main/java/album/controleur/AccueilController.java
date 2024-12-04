@@ -27,15 +27,12 @@ public class AccueilController {
 
     public void gotoCreation() throws IOException{
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        
-        // Définir un répertoire initial (facultatif)
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        
-        // Ouvrir la fenêtre de sélection du répertoire
-        Stage stage = (Stage) button.getScene().getWindow();  // Récupérer le Stage actuel
-        File selectedDirectory = directoryChooser.showDialog(stage);
 
-        // Vérifier si un répertoire a été sélectionné
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        Stage stage = (Stage) button.getScene().getWindow();  
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        
         if (selectedDirectory != null) {
             stage.setScene(loadCreation(selectedDirectory.getAbsolutePath()));
         } else {

@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
 public class RepositoryController {
 
@@ -39,6 +41,18 @@ public class RepositoryController {
 
             flowPane.getChildren().add(imageView);
         }
+    }
+
+    @FXML
+    public void changeDirectory(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+
+        directoryChooser.setInitialDirectory(new File(directoryPath));
+
+        Stage stage = (Stage) flowPane.getScene().getWindow();  
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        
+        if (selectedDirectory != null) setDirectoryPath(selectedDirectory.getAbsolutePath());
     }
 
     public void setDirectoryPath(String newDirectoryPath){
