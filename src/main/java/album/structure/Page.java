@@ -1,6 +1,8 @@
-package album;
+package album.structure;
 
-public class Page {
+import java.io.Serializable;
+
+public class Page implements Serializable {
     
     private Photo left;
     private Photo right;

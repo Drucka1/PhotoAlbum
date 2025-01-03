@@ -4,11 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import album.Album;
 import album.ObservableInterface;
 import album.ObserverInterface;
-import album.Page;
-import album.Photo;
+import album.structure.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;

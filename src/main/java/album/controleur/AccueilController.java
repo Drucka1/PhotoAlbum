@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import album.Album;
-import album.Photo;
+import album.structure.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,10 +16,8 @@ import javafx.stage.Stage;
 
 public class AccueilController {
 
-    @FXML   
-    private Button button;
-    @FXML
-    private Label label;
+    @FXML private Button button;
+    @FXML private Label label;
 
 
     public AccueilController(){}
@@ -42,7 +39,8 @@ public class AccueilController {
     }
 
     private Scene loadCreation(String directoryPath) throws IOException {
-        Album album = albumTest();
+        //Album album = albumTest();
+        Album album = AlbumDB.loadAlbum("My Album");
         FXMLLoader loader = new FXMLLoader();
 
         URL fxmlURL = getClass().getResource("/view/MainWindow.fxml");
@@ -51,7 +49,7 @@ public class AccueilController {
             System.exit(1);
         }
         
-        MainWindowController mw = new MainWindowController();
+        MainWindowController mw = new MainWindowController(album);
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album,directoryPath);
         RepositoryController rc = new RepositoryController(directoryPath);

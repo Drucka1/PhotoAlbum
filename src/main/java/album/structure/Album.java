@@ -1,9 +1,10 @@
-package album;
+package album.structure;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Album {
+public class Album implements Serializable {
 
     private String name; 
     private LinkedList<Page> pages;

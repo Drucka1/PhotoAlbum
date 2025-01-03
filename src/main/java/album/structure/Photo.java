@@ -1,6 +1,8 @@
-package album;
+package album.structure;
 
-public class Photo {
+import java.io.Serializable;
+
+public class Photo implements Serializable {
 
     private String name;
     private String imagePath;
