@@ -33,8 +33,15 @@
                 <Button fx:id="before" text="Before" onAction="#handleBefore"/>
                 <Button fx:id="after" text="After" onAction="#handleAfter"/>
                 <Button fx:id="end" text="End" onAction="#handleEnd"/>
-                <Button fx:id="add" text="Add" onAction="#handleAdd"/>
-                <Button fx:id="del" text="Del" onAction="#handleDel"/>
+            </children>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button fx:id="addLeft" text="AddLeft" onAction="#handleAddLeft"/>
+                <Button fx:id="delLeft" text="DelLeft" onAction="#handleDelLeft"/>
+                <Button fx:id="addRight" text="AddRight" onAction="#handleAddRight"/>
+                <Button fx:id="delRight" text="DelRight" onAction="#handleDelRight"/>
             </children>
         </HBox>
         

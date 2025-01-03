@@ -26,15 +26,18 @@ public class OverviewController implements ObserverInterface {
 
         for (Page page : album.getPages()){
 
-            ImageView img = new ImageView(new Image(page.getLeft().getImagePath()));
-            img.setPreserveRatio(true);
-            img.setFitWidth(280);
+            if (page.getLeft() != null){
+                ImageView img = new ImageView(new Image(page.getLeft().getImagePath()));
+                img.setPreserveRatio(true);
+                img.setFitWidth(280);
 
-            flowPane.getChildren().add(new Label(page.getLeft().getName()));
-            flowPane.getChildren().add(img);
+                flowPane.getChildren().add(new Label(page.getLeft().getName()));
+                flowPane.getChildren().add(img);
+            }
+            
 
             if (page.getRight() != null){
-                img = new ImageView(new Image(page.getRight().getImagePath()));
+                ImageView img = new ImageView(new Image(page.getRight().getImagePath()));
                 img.setPreserveRatio(true);
                 img.setFitWidth(280);
 

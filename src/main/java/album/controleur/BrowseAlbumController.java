@@ -51,12 +51,23 @@ public class BrowseAlbumController implements ObservableInterface {
 
     private void refresh() {
         Page currentPage = album.getCurrentPage();
-        nameL.setText(currentPage.getLeft().getName());
-        imageL.setImage(new Image(currentPage.getLeft().getImagePath()));
+
+        if (currentPage.getLeft() != null) {
+            nameL.setText(currentPage.getLeft().getName());
+            imageL.setImage(new Image(currentPage.getLeft().getImagePath()));
+        }
+        else {
+            nameL.setText(null);
+            imageL.setImage(null);
+        }
 
         if (currentPage.getRight() != null) {
             nameR.setText(currentPage.getRight().getName());
             imageR.setImage(new Image(currentPage.getRight().getImagePath()));
+        }
+        else {
+            nameR.setText(null);
+            imageR.setImage(null);
         }
     }
 
@@ -89,12 +100,30 @@ public class BrowseAlbumController implements ObservableInterface {
     }
 
     @FXML 
-    public void handleAdd() {
+    public void handleAddLeft() {
+        refresh();
         notifyObserver();
     }
 
     @FXML 
-    public void handleDel() {
+    public void handleDelLeft() {
+        Page page = album.getCurrentPage();
+        page.setLeft(null);
+        refresh();
+        notifyObserver();
+    }
+
+    @FXML 
+    public void handleAddRight() {
+        refresh();
+        notifyObserver();
+    }
+
+    @FXML 
+    public void handleDelRight() {
+        Page page = album.getCurrentPage();
+        page.setRight(null);
+        refresh();
         notifyObserver();
     }
 }
