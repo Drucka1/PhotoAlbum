@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -39,7 +41,10 @@ public class RepositoryController {
             imageView.setPreserveRatio(true);
             imageView.setFitWidth(140);
 
-            flowPane.getChildren().add(imageView);
+
+            VBox vbox = new VBox();
+            vbox.getChildren().addAll(imageView,new Text(image.getName()));
+            flowPane.getChildren().add(vbox);
         }
     }
 

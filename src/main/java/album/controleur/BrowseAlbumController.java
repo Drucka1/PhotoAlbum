@@ -1,5 +1,6 @@
 package album.controleur;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,13 @@ import album.Album;
 import album.ObservableInterface;
 import album.ObserverInterface;
 import album.Page;
+import album.Photo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
 public class BrowseAlbumController implements ObservableInterface {
     @FXML private Label albumName;
@@ -101,6 +105,32 @@ public class BrowseAlbumController implements ObservableInterface {
 
     @FXML 
     public void handleAddLeft() {
+
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
+        fileChooser.getExtensionFilters().add(imageFilter);
+
+        File file = fileChooser.showOpenDialog(null); 
+
+        if (file != null) {
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Nom de l'image");
+            dialog.setHeaderText("Veuillez entrer le nom de l'image à gauche.");
+            dialog.setContentText("Nom de l'image :");
+
+            
+            dialog.showAndWait().ifPresent(imageName -> {
+                Image image = new Image(file.toURI().toString());
+
+                Page page = album.getCurrentPage();
+                page.setLeft(new Photo(imageName, image.getUrl()));
+
+                imageL.setImage(image);
+                nameL.setText(imageName); 
+            });
+        }
         refresh();
         notifyObserver();
     }
@@ -115,6 +145,32 @@ public class BrowseAlbumController implements ObservableInterface {
 
     @FXML 
     public void handleAddRight() {
+        
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
+        fileChooser.getExtensionFilters().add(imageFilter);
+
+        File file = fileChooser.showOpenDialog(null); 
+
+        if (file != null) {
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Nom de l'image");
+            dialog.setHeaderText("Veuillez entrer le nom de l'image à gauche.");
+            dialog.setContentText("Nom de l'image :");
+
+            
+            dialog.showAndWait().ifPresent(imageName -> {
+                Image image = new Image(file.toURI().toString());
+
+                Page page = album.getCurrentPage();
+                page.setRight(new Photo(imageName, image.getUrl()));
+
+                imageR.setImage(image);
+                nameR.setText(imageName); 
+            });
+        }
         refresh();
         notifyObserver();
     }
