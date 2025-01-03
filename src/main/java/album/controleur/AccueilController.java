@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,7 +50,7 @@ public class AccueilController {
     }
 
     
-    private Scene loadCreation(Album album, String directoryPath) throws IOException {
+    private Scene loadCreation(Album album) throws IOException {
         //Album album = albumTest();
         //Album album = AlbumDB.loadAlbum(albumName);
         FXMLLoader loader = new FXMLLoader();
@@ -61,8 +63,8 @@ public class AccueilController {
         
         MainWindowController mw = new MainWindowController(album);
         OverviewController oc = new OverviewController(album);
-        BrowseAlbumController ba = new BrowseAlbumController(album,directoryPath);
-        RepositoryController rc = new RepositoryController(directoryPath);
+        BrowseAlbumController ba = new BrowseAlbumController(album);
+        RepositoryController rc = new RepositoryController(album.getDirectoryPath());
         ba.addObserver(oc);
 
         loader.setControllerFactory(controllerClass -> {
@@ -98,16 +100,25 @@ public class AccueilController {
     }
     
     private void gotoCreation(String albumName) throws IOException{
-        String path = askForPath();
         Stage stage = (Stage) button.getScene().getWindow();  
-        if (path != null){
-            Album album = AlbumDB.loadAlbum(albumName);
-            stage.setScene(loadCreation(album,path));
-        }
-        else {
-            label.setText("Aucun répertoire sélectionné");
-        }
+        Album album = AlbumDB.loadAlbum(albumName);
 
+        String path = album.getDirectoryPath();
+        File file = new File(path);
+        
+        if (!file.exists()) {
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information");
+            alert.setHeaderText("Chemin invalide");
+            alert.setContentText("Le chemin n'existe plus, renseigner en un nouveau");
+
+            alert.showAndWait();
+
+            String newPath = askForPath();
+            album.setDirectoryPath(newPath);
+        }
+        stage.setScene(loadCreation(album));
     }
 
 
@@ -118,7 +129,7 @@ public class AccueilController {
         String name = askForAlbumName();
         String path = askForPath();
         System.out.println("Path : "+path+ "name : "+name);
-        if (name != null && path != null) stage.setScene(loadCreation(new Album(name), path));
+        if (name != null && path != null) stage.setScene(loadCreation(new Album(name, path)));
     }
 
     private String askForAlbumName(){

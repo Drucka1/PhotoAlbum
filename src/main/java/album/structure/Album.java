@@ -9,12 +9,14 @@ public class Album implements Serializable {
     private String name; 
     private LinkedList<Page> pages;
     private int currentPageIndex;
+    private String directoryPath;
 
-    public Album(String name) {
+    public Album(String name,String path) {
         this.name = name;
         this.pages = new LinkedList<Page>();
         pages.add(new Page(null));
         this.currentPageIndex = 0;
+        directoryPath = path;
     }
 
     public void addPhoto(Photo photo) {
@@ -66,6 +68,14 @@ public class Album implements Serializable {
 
     public int currentIndex(){
         return currentPageIndex;
+    }
+
+    public String getDirectoryPath(){
+        return directoryPath;
+    }
+
+    public void setDirectoryPath(String newPath){
+        directoryPath = newPath;
     }
 
 }
