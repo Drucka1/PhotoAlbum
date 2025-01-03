@@ -64,7 +64,7 @@ public class AccueilController {
         MainWindowController mw = new MainWindowController(album);
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
-        RepositoryController rc = new RepositoryController(album.getDirectoryPath());
+        RepositoryController rc = new RepositoryController(album);
         ba.addObserver(oc);
 
         loader.setControllerFactory(controllerClass -> {
@@ -108,7 +108,7 @@ public class AccueilController {
         
         if (!file.exists()) {
 
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Information");
             alert.setHeaderText("Chemin invalide");
             alert.setContentText("Le chemin n'existe plus, renseigner en un nouveau");

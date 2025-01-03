@@ -47,5 +47,10 @@ public class OverviewController implements ObserverInterface {
         }
         
     }
+
+    @FXML 
+    public void handleAll(){
+        
+    }
 }
 

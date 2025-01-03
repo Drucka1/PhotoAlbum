@@ -6,10 +6,10 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.OverviewController" alignment="CENTER">
     <Label text="Overview" style="-fx-font-size: 20px;"/>
-    <ScrollPane fitToWidth="true" maxWidth="300">
+    <ScrollPane fitToWidth="true" maxWidth="300" prefHeight="1100">
         <content > 
             <FlowPane fx:id="flowPane" hgap="10" vgap="10" alignment="CENTER" maxWidth="280"/>
         </content>
     </ScrollPane>
-    <Button text="All"/>
+    <Button text="All" fx:id="all" onAction="#handleAll"/>
 </VBox>

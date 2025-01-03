@@ -1,5 +1,7 @@
 package album.controleur;
 
+import album.structure.*;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,17 +20,17 @@ public class RepositoryController {
     private static final String[] EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff"};
     
     @FXML private FlowPane flowPane;
-    private String directoryPath;
+    private Album album;
 
     public RepositoryController(){}
 
-    public RepositoryController(String directoryPath){
-        this.directoryPath = directoryPath;
+    public RepositoryController(Album album){
+        this.album = album;
     }
 
     @FXML
     public void initialize() {
-        if (directoryPath != null) refresh();
+        if (album.getDirectoryPath() != null) refresh();
     }
 
     @FXML
@@ -52,7 +54,7 @@ public class RepositoryController {
     public void changeDirectory(){
         DirectoryChooser directoryChooser = new DirectoryChooser();
 
-        directoryChooser.setInitialDirectory(new File(directoryPath));
+        directoryChooser.setInitialDirectory(new File(album.getDirectoryPath()));
 
         Stage stage = (Stage) flowPane.getScene().getWindow();  
         File selectedDirectory = directoryChooser.showDialog(stage);
@@ -61,12 +63,12 @@ public class RepositoryController {
     }
 
     public void setDirectoryPath(String newDirectoryPath){
-        directoryPath = newDirectoryPath;
+        album.setDirectoryPath(newDirectoryPath);
         refresh();
     }
 
     private List<File> getImagesFromDirectory() {
-        File directory = new File(directoryPath);
+        File directory = new File(album.getDirectoryPath());
         List<File> imageFiles = new ArrayList<>();
 
         if (directory.exists() && directory.isDirectory()) {

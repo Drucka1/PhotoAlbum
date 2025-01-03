@@ -1,6 +1,10 @@
 package album.structure;
 
 import java.util.List;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -26,8 +30,25 @@ public class Album implements Serializable {
         else pages.addLast(new Page(photo));
     }
 
-    public void addPages(Page page) {
+    public void addPage(Page page) {
         pages.addLast(page);
+    }
+
+    public void removePage() {
+        if (pages.size() > 1){
+            
+            pages.remove(currentPageIndex);
+
+            if (currentPageIndex == pages.size()) currentPageIndex -= 1;
+           
+        } 
+        else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Alerte");
+            alert.setHeaderText("Suppression impossible");
+            alert.setContentText("Il doit y avoir au moins une page dans l'");
+            alert.showAndWait();
+        }
     }
 
     public Page getCurrentPage() {

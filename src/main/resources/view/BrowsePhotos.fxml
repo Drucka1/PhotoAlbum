@@ -33,6 +33,12 @@
                 <Button fx:id="before" text="Before" onAction="#handleBefore"/>
                 <Button fx:id="after" text="After" onAction="#handleAfter"/>
                 <Button fx:id="end" text="End" onAction="#handleEnd"/>
+            </children>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button fx:id="delPage" text="Del Page" onAction="#handleDelPage"/> 
                 <Button fx:id="newPage" text="New Page" onAction="#handleNewPage"/>
             </children>
         </HBox>
