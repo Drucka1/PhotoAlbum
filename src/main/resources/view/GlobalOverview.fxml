@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.GlobalOverviewController" alignment="CENTER">
+    <Label text="Global Overview" style="-fx-font-size: 20px;"/>
+    <ScrollPane fitToWidth="true"  prefHeight="1100">
+        <content > 
+            <FlowPane fx:id="flowPane" hgap="10" vgap="10"/>
+        </content>
+    </ScrollPane>
+    <Button text="Back" fx:id="back" onAction="#handleBack"/>
+</VBox>

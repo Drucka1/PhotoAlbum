@@ -2,42 +2,46 @@ package album.controleur;
 
 import java.io.IOException;
 
-import album.ObserverInterface;
 import album.structure.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class OverviewController implements ObserverInterface {
+public class GlobalOverviewController {
 
     @FXML private FlowPane flowPane;
     
     private Album album;
+    private Scene scene;
 
-    public OverviewController() {}
+    public GlobalOverviewController() {}
 
-    public OverviewController(Album album){
+    public GlobalOverviewController(Album album,Scene scene){
         this.album = album;
+        this.scene = scene;
     }
 
-    public void update() {
+    public void refresh() {
         flowPane.getChildren().clear();
 
         for (Page page : album.getPages()){
+
+            HBox hbox = new HBox();
+            hbox.setSpacing(2);
 
             if (page.getLeft() != null){
                 ImageView img = new ImageView(new Image(page.getLeft().getImagePath()));
                 img.setPreserveRatio(true);
                 img.setFitWidth(280);
 
-                flowPane.getChildren().add(new Label(page.getLeft().getName()));
-                flowPane.getChildren().add(img);
+                hbox.getChildren().add(img);
             }
             
 
@@ -46,33 +50,24 @@ public class OverviewController implements ObserverInterface {
                 img.setPreserveRatio(true);
                 img.setFitWidth(280);
 
-                flowPane.getChildren().add(new Label(page.getRight().getName()));
-                flowPane.getChildren().add(img);
+                hbox.getChildren().add(img);
             }
+
+            VBox vbox = new VBox();
+            vbox.setSpacing(5);
+            vbox.setAlignment(Pos.CENTER);
+
+            vbox.getChildren().addAll(hbox, new Label("Page "+album.getPages().indexOf(page)));
+
+            flowPane.getChildren().add(vbox);
             
-        }
-        
+        }        
     }
 
     @FXML 
-    public void handleAll() throws IOException{
-
-        AlbumDB.saveAlbum(album);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GlobalOverview.fxml"));
-
-        GlobalOverviewController go = new GlobalOverviewController(album,flowPane.getScene());
-        loader.setControllerFactory(controllerClass -> go);
-
-
-        VBox root = loader.load();
-
-        Scene scene = new Scene(root);
-
+    public void handleBack() throws IOException{
         Stage stage = (Stage) flowPane.getScene().getWindow();  
-        go.refresh();
         stage.setScene(scene); 
-
     }
 }
 
