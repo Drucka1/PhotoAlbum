@@ -9,17 +9,17 @@
         <Label fx:id="albumName"/>
         
         <HBox spacing="10" alignment="CENTER">
-            <children>
-                <VBox spacing="10" alignment="TOP_CENTER">
+            <children> 
+                <VBox spacing="10" alignment="CENTER" minWidth="400" maxWidth="400">
                     <children>
                         <Label fx:id="nameL" />
-                        <ImageView fx:id="imageL"/>
+                        <ImageView fx:id="imageL" fitWidth="400" preserveRatio="true"/>
                     </children>
                 </VBox>
-                <VBox spacing="10" alignment="TOP_CENTER">
+                <VBox spacing="10" alignment="CENTER" minWidth="400" maxWidth="400">
                     <children>
                         <Label fx:id="nameR"/>
-                        <ImageView fx:id="imageR" />
+                        <ImageView fx:id="imageR" fitWidth="400" preserveRatio="true"/>
                     </children>
                 </VBox>
             </children>
@@ -33,15 +33,16 @@
                 <Button fx:id="before" text="Before" onAction="#handleBefore"/>
                 <Button fx:id="after" text="After" onAction="#handleAfter"/>
                 <Button fx:id="end" text="End" onAction="#handleEnd"/>
+                <Button fx:id="newPage" text="New Page" onAction="#handleNewPage"/>
             </children>
         </HBox>
 
         <HBox spacing="10" alignment="CENTER">
             <children>
-                <Button fx:id="addLeft" text="AddLeft" onAction="#handleAddLeft"/>
-                <Button fx:id="delLeft" text="DelLeft" onAction="#handleDelLeft"/>
-                <Button fx:id="addRight" text="AddRight" onAction="#handleAddRight"/>
-                <Button fx:id="delRight" text="DelRight" onAction="#handleDelRight"/>
+                <Button fx:id="addLeft" text="Add Left" onAction="#handleAddLeft"/>
+                <Button fx:id="delLeft" text="Del Left" onAction="#handleDelLeft"/>
+                <Button fx:id="addRight" text="Add Right" onAction="#handleAddRight"/>
+                <Button fx:id="delRight" text="Del Right" onAction="#handleDelRight"/>
             </children>
         </HBox>
         

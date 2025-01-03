@@ -182,4 +182,14 @@ public class BrowseAlbumController implements ObservableInterface {
         refresh();
         notifyObserver();
     }
+
+    @FXML 
+    public void handleNewPage() {
+        album.addPages(new Page(null));
+        album.lastPage();
+
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
+        refresh();
+        notifyObserver();
+    }
 }
