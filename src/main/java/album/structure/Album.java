@@ -13,6 +13,7 @@ public class Album implements Serializable {
     public Album(String name) {
         this.name = name;
         this.pages = new LinkedList<Page>();
+        pages.add(new Page(null));
         this.currentPageIndex = 0;
     }
 

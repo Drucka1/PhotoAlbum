@@ -117,8 +117,8 @@ public class AccueilController {
 
         String name = askForAlbumName();
         String path = askForPath();
-
-        if (name != null && path != null)  stage.setScene(loadCreation(new Album(name), path));
+        System.out.println("Path : "+path+ "name : "+name);
+        if (name != null && path != null) stage.setScene(loadCreation(new Album(name), path));
     }
 
     private String askForAlbumName(){
