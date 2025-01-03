@@ -26,6 +26,7 @@ public class BrowseAlbumController implements ObservableInterface {
 
     private List<ObserverInterface> obs = new ArrayList<>();
     private Album album;
+    private String directoryPath;
 
     public BrowseAlbumController(){
         this.album = new Album(null);
@@ -33,6 +34,11 @@ public class BrowseAlbumController implements ObservableInterface {
 
     public BrowseAlbumController(Album album){
         this.album = album;
+    }
+
+    public BrowseAlbumController(Album album,String directoryPath){
+        this.album = album;
+        this.directoryPath = directoryPath;
     }
 
     public void addObserver(ObserverInterface observer){
@@ -110,6 +116,7 @@ public class BrowseAlbumController implements ObservableInterface {
         
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
+        fileChooser.setInitialDirectory(new File(directoryPath));
 
         File file = fileChooser.showOpenDialog(null); 
 
@@ -150,6 +157,7 @@ public class BrowseAlbumController implements ObservableInterface {
         
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
+        fileChooser.setInitialDirectory(new File(directoryPath));
 
         File file = fileChooser.showOpenDialog(null); 
 

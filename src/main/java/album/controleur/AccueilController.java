@@ -53,7 +53,7 @@ public class AccueilController {
         
         MainWindowController mw = new MainWindowController();
         OverviewController oc = new OverviewController(album);
-        BrowseAlbumController ba = new BrowseAlbumController(album);
+        BrowseAlbumController ba = new BrowseAlbumController(album,directoryPath);
         RepositoryController rc = new RepositoryController(directoryPath);
         ba.addObserver(oc);
 
