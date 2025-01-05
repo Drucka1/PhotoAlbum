@@ -55,6 +55,10 @@ public class Album implements Serializable {
         return pages.get(currentPageIndex);
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     public List<Page> getPages() {
         return this.pages;
     }

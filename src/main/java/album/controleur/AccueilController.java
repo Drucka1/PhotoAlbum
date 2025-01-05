@@ -69,7 +69,7 @@ public class AccueilController {
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
         RepositoryController rc = new RepositoryController(album,ba);
-        MenuController mc = new MenuController(album);
+        MenuController mc = new MenuController(album,oc);
 
         ba.addObserver(oc);
         
@@ -118,8 +118,6 @@ public class AccueilController {
 
         return new Scene(root);
     }
-
-   
     
     public void gotoCreation(String albumName) throws IOException{
         Stage stage = (Stage) button.getScene().getWindow();  

@@ -45,4 +45,22 @@ public class AlbumDB {
         }
         return albumNames;
     }
+
+    public static boolean deleteAlbum(String albumName) {
+        File albumFile = new File(path + albumName);
+
+        // Vérifier si le fichier existe
+        if (albumFile.exists()) {
+            boolean deleted = albumFile.delete(); // Supprimer le fichier
+            if (deleted) {
+                System.out.println("L'album a été supprimé : " + albumName);
+            } else {
+                System.out.println("Erreur lors de la suppression de l'album : " + albumName);
+            }
+            return deleted;
+        } else {
+            System.out.println("L'album n'existe pas : " + albumName);
+            return false;
+        }
+    }
 }
