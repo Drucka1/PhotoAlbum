@@ -2,15 +2,19 @@ package album.controleur;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import album.ObservableInterface;
 import album.ObserverInterface;
 import album.structure.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 
 public class BrowseAlbumController implements ObservableInterface {
     @FXML private Label albumName;
@@ -54,6 +58,19 @@ public class BrowseAlbumController implements ObservableInterface {
         if (currentPage.getLeft() != null) {
             nameL.setText(currentPage.getLeft().getName());
             imageL.setImage(new Image(currentPage.getLeft().getImagePath()));
+            
+            
+            MenuItem del = new MenuItem("Add left");
+            MenuItem changeName = new MenuItem("Change name");
+
+            ContextMenu contextMenu = new ContextMenu(del, changeName);
+
+            del.setOnAction(e -> handleDelLeft());
+            changeName.setOnAction(e -> changeNameLeft());
+
+            imageL.setOnContextMenuRequested(event -> {
+                contextMenu.show(imageL, event.getScreenX(), event.getScreenY());
+            });
         }
         else {
             nameL.setText(null);
@@ -63,6 +80,18 @@ public class BrowseAlbumController implements ObservableInterface {
         if (currentPage.getRight() != null) {
             nameR.setText(currentPage.getRight().getName());
             imageR.setImage(new Image(currentPage.getRight().getImagePath()));
+
+            MenuItem del = new MenuItem("Add left");
+            MenuItem changeName = new MenuItem("Change name");
+
+            ContextMenu contextMenu = new ContextMenu(del, changeName);
+
+            del.setOnAction(e -> handleDelLeft());
+            changeName.setOnAction(e -> changeNameRight());
+
+            imageR.setOnContextMenuRequested(event -> {
+                contextMenu.show(imageR, event.getScreenX(), event.getScreenY());
+            });
         }
         else {
             nameR.setText(null);
@@ -100,12 +129,7 @@ public class BrowseAlbumController implements ObservableInterface {
 
     public void handleAddLeft(String imagePath) {
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Nom de l'image");
-        dialog.setHeaderText("Veuillez entrer le nom de l'image de gauche.");
-        dialog.setContentText("Nom de l'image :");
-        
-        dialog.showAndWait().ifPresent(imageName -> {
+        askForPhotoName().ifPresent(imageName -> {
             Image image = new Image(imagePath);
 
             Page page = album.getCurrentPage();
@@ -119,7 +143,6 @@ public class BrowseAlbumController implements ObservableInterface {
         notifyObserver();
     }
 
-    @FXML 
     public void handleDelLeft() {
         Page page = album.getCurrentPage();
         page.setLeft(null);
@@ -129,13 +152,7 @@ public class BrowseAlbumController implements ObservableInterface {
 
     public void handleAddRight(String imagePath) {
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Nom de l'image");
-        dialog.setHeaderText("Veuillez entrer le nom de l'image de droite.");
-        dialog.setContentText("Nom de l'image :");
-
-        
-        dialog.showAndWait().ifPresent(imageName -> {
+        askForPhotoName().ifPresent(imageName -> {
             Image image = new Image(imagePath);
 
             Page page = album.getCurrentPage();
@@ -149,7 +166,6 @@ public class BrowseAlbumController implements ObservableInterface {
         notifyObserver();
     }
 
-    @FXML 
     public void handleDelRight() {
         Page page = album.getCurrentPage();
         page.setRight(null);
@@ -171,6 +187,32 @@ public class BrowseAlbumController implements ObservableInterface {
     public void handleDelPage(){
         album.removePage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
+        refresh();
+        notifyObserver();
+    }
+
+    public Optional<String> askForPhotoName(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Nom de l'image");
+        dialog.setHeaderText("Veuillez entrer le nom de l'image de droite.");
+        dialog.setContentText("Nom de l'image :");
+        dialog.initModality(Modality.APPLICATION_MODAL);
+
+        return dialog.showAndWait();
+    }
+
+    public void changeNameLeft(){
+        askForPhotoName().ifPresent(imageName -> {
+            nameL.setText(imageName);
+        });
+        refresh();
+        notifyObserver();
+    }
+
+    public void changeNameRight(){
+        askForPhotoName().ifPresent(imageName -> {
+            nameR.setText(imageName);
+        });
         refresh();
         notifyObserver();
     }

@@ -49,17 +49,14 @@ public class RepositoryController {
             imageView.setPreserveRatio(true);
             imageView.setFitWidth(140);
 
-            MenuItem menuItem1 = new MenuItem("Add left");
-            MenuItem menuItem2 = new MenuItem("Add right");
+            MenuItem addLeft = new MenuItem("Add left");
+            MenuItem addRight = new MenuItem("Add right");
 
-            // Créer le ContextMenu et ajouter les éléments
-            ContextMenu contextMenu = new ContextMenu(menuItem1, menuItem2);
+            ContextMenu contextMenu = new ContextMenu(addLeft, addRight);
 
-            // Ajouter des actions pour chaque élément du menu
-            menuItem1.setOnAction(e -> browseAlbumController.handleAddLeft(imagePath));
-            menuItem2.setOnAction(e -> browseAlbumController.handleAddRight(imagePath));
+            addLeft.setOnAction(e -> browseAlbumController.handleAddLeft(imagePath));
+            addRight.setOnAction(e -> browseAlbumController.handleAddRight(imagePath));
 
-            // Ajouter un gestionnaire d'événements pour afficher le menu contextuel
             imageView.setOnContextMenuRequested(event -> {
                 contextMenu.show(imageView, event.getScreenX(), event.getScreenY());
             });

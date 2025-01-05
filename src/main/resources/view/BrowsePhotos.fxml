@@ -42,13 +42,6 @@
                 <Button fx:id="newPage" text="New Page" onAction="#handleNewPage"/>
             </children>
         </HBox>
-
-        <HBox spacing="10" alignment="CENTER">
-            <children>
-                <Button fx:id="delLeft" text="Del Left" onAction="#handleDelLeft"/>
-                <Button fx:id="delRight" text="Del Right" onAction="#handleDelRight"/>
-            </children>
-        </HBox>
         
     </children>
 </VBox>

@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AccueilController {
@@ -119,6 +120,7 @@ public class AccueilController {
             album.setDirectoryPath(newPath);
         }
         stage.setScene(loadCreation(album));
+        stage.setMaximized(true);
     }
 
 
@@ -138,7 +140,7 @@ public class AccueilController {
         dialog.setTitle("Nom de l'album");
         dialog.setHeaderText("Veuillez entrer le nom de l'album");
         dialog.setContentText("Nom de l'album :");
-
+        dialog.initModality(Modality.APPLICATION_MODAL);
         
         Optional<String> name = dialog.showAndWait();
     
