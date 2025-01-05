@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+
+<MenuBar xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.MenuController" fx:id="menuBar">
+    <Menu text="Album">
+        <MenuItem text="Créer un nouvel album" fx:id="createAlbum"/>
+        <MenuItem text="Sauvegarder l'album" fx:id="saveAlbum"/>
+        <Menu text="Autre album" fx:id="otherAlbum"/>
+        <MenuItem text="Quitter" fx:id="quitAlbum" onAction="#handleQuit"/>
+    </Menu>
+    <Menu text="Outils">
+        <MenuItem text="Nom de l'album" fx:id="setAlbumName"/>
+        <MenuItem text="Mode Vignettes" fx:id="switchToThumbnails"/>
+        <MenuItem fx:id="acceuil" text="acceuil" onAction="#gotoAcceuil"/>
+    </Menu>
+</MenuBar>

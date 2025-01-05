@@ -6,6 +6,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import album.ObserverInterface;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -17,7 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-public class RepositoryController {
+public class RepositoryController implements ObserverInterface{
 
     private static final String[] EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff"};
     
@@ -35,11 +37,16 @@ public class RepositoryController {
 
     @FXML
     public void initialize() {
-        if (album.getDirectoryPath() != null) refresh();
+        if (album.getDirectoryPath() != null) update();
+    }
+
+    public void changeAlbum(Album album){
+        this.album = album;
+        update();
     }
 
     @FXML
-    public void refresh(){
+    public void update(){
         flowPane.getChildren().clear();
         for (File image : getImagesFromDirectory()){
             String imagePath = image.toURI().toString(); 
@@ -82,7 +89,7 @@ public class RepositoryController {
 
     public void setDirectoryPath(String newDirectoryPath){
         album.setDirectoryPath(newDirectoryPath);
-        refresh();
+        update();
     }
 
     private List<File> getImagesFromDirectory() {

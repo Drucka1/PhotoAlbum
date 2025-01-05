@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import album.ObserverInterface;
 import album.structure.*;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,6 +25,11 @@ public class OverviewController implements ObserverInterface {
 
     public OverviewController(Album album){
         this.album = album;
+    }
+
+    public void changeAlbum(Album album){
+        this.album = album;
+        update();
     }
 
     public void update() {

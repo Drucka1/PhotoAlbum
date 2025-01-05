@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 
-public class BrowseAlbumController implements ObservableInterface {
+public class BrowseAlbumController implements ObservableInterface,ObserverInterface {
     @FXML private Label albumName;
     @FXML private Label nameL;
     @FXML private ImageView imageL;
@@ -44,15 +44,20 @@ public class BrowseAlbumController implements ObservableInterface {
         }
     }
 
+    public void changeAlbum(Album album){
+        this.album = album;
+        update();
+    }
+
     @FXML
     public void initialize() {
         albumName.setText(album.getName());
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
         notifyObserver();
     }
 
-    private void refresh() {
+    public void update() {
         Page currentPage = album.getCurrentPage();
 
         if (currentPage.getLeft() != null) {
@@ -60,7 +65,7 @@ public class BrowseAlbumController implements ObservableInterface {
             imageL.setImage(new Image(currentPage.getLeft().getImagePath()));
             
             
-            MenuItem del = new MenuItem("Add left");
+            MenuItem del = new MenuItem("Delete");
             MenuItem changeName = new MenuItem("Change name");
 
             ContextMenu contextMenu = new ContextMenu(del, changeName);
@@ -81,12 +86,12 @@ public class BrowseAlbumController implements ObservableInterface {
             nameR.setText(currentPage.getRight().getName());
             imageR.setImage(new Image(currentPage.getRight().getImagePath()));
 
-            MenuItem del = new MenuItem("Add left");
+            MenuItem del = new MenuItem("Delete");
             MenuItem changeName = new MenuItem("Change name");
 
             ContextMenu contextMenu = new ContextMenu(del, changeName);
 
-            del.setOnAction(e -> handleDelLeft());
+            del.setOnAction(e -> handleDelRight());
             changeName.setOnAction(e -> changeNameRight());
 
             imageR.setOnContextMenuRequested(event -> {
@@ -103,28 +108,28 @@ public class BrowseAlbumController implements ObservableInterface {
     public void handleStart() {
         album.firstPage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
     }
 
     @FXML 
     public void handleBefore() {
         album.previousPage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
     }
 
     @FXML 
     public void handleAfter() {
         album.nextPage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
     }
 
     @FXML 
     public void handleEnd() {
         album.lastPage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
     }
 
     public void handleAddLeft(String imagePath) {
@@ -139,14 +144,14 @@ public class BrowseAlbumController implements ObservableInterface {
             nameL.setText(imageName); 
         });
         
-        refresh();
+        update();
         notifyObserver();
     }
 
     public void handleDelLeft() {
         Page page = album.getCurrentPage();
         page.setLeft(null);
-        refresh();
+        update();
         notifyObserver();
     }
 
@@ -162,14 +167,14 @@ public class BrowseAlbumController implements ObservableInterface {
             nameR.setText(imageName); 
         });
 
-        refresh();
+        update();
         notifyObserver();
     }
 
     public void handleDelRight() {
         Page page = album.getCurrentPage();
         page.setRight(null);
-        refresh();
+        update();
         notifyObserver();
     }
 
@@ -179,7 +184,7 @@ public class BrowseAlbumController implements ObservableInterface {
         album.lastPage();
 
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
         notifyObserver();
     }
 
@@ -187,7 +192,7 @@ public class BrowseAlbumController implements ObservableInterface {
     public void handleDelPage(){
         album.removePage();
         progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
-        refresh();
+        update();
         notifyObserver();
     }
 
@@ -205,7 +210,7 @@ public class BrowseAlbumController implements ObservableInterface {
         askForPhotoName().ifPresent(imageName -> {
             nameL.setText(imageName);
         });
-        refresh();
+        update();
         notifyObserver();
     }
 
@@ -213,7 +218,7 @@ public class BrowseAlbumController implements ObservableInterface {
         askForPhotoName().ifPresent(imageName -> {
             nameR.setText(imageName);
         });
-        refresh();
+        update();
         notifyObserver();
     }
 }

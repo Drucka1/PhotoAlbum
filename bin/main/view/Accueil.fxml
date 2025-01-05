@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.AccueilController">
+    <center>
+        <VBox spacing="10" alignment="CENTER">
+            <children>
+                <Label text="Choose your album"/>
+                <Label fx:id="label"/>
+                <ListView fx:id="albumListView" prefHeight="200" prefWidth="300" />
+                <Button fx:id="button" text="New album" layoutX="100" layoutY="150" onAction="#handleNewAlbum"/>
+            </children>
+        </VBox>
+    </center> 
+</BorderPane>

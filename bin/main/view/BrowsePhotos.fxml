@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="album.controleur.BrowseAlbumController" spacing="10" alignment="CENTER">
+    <children >
+        <Label fx:id="albumName"/>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <children> 
+                <VBox spacing="10" alignment="CENTER" minWidth="400" maxWidth="400">
+                    <children>
+                        <Label fx:id="nameL" />
+                        <ImageView fx:id="imageL" fitWidth="400" preserveRatio="true"/>
+                    </children>
+                </VBox>
+                <VBox spacing="10" alignment="CENTER" minWidth="400" maxWidth="400">
+                    <children>
+                        <Label fx:id="nameR"/>
+                        <ImageView fx:id="imageR" fitWidth="400" preserveRatio="true"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <Label fx:id="progression"/>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button fx:id="start" text="Start" onAction="#handleStart"/>
+                <Button fx:id="before" text="Before" onAction="#handleBefore"/>
+                <Button fx:id="after" text="After" onAction="#handleAfter"/>
+                <Button fx:id="end" text="End" onAction="#handleEnd"/>
+            </children>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <children>
+                <Button fx:id="delPage" text="Del Page" onAction="#handleDelPage"/> 
+                <Button fx:id="newPage" text="New Page" onAction="#handleNewPage"/>
+            </children>
+        </HBox>
+        
+    </children>
+</VBox>

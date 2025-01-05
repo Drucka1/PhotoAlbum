@@ -6,8 +6,9 @@ import java.net.URL;
 import java.util.Optional;
 
 import album.structure.*;
-import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,12 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class AccueilController {
 
@@ -33,7 +36,7 @@ public class AccueilController {
     @FXML
     public void initialize() {
 
-        ObservableList<String> albums = loadAlbums();
+        ObservableList<String> albums = AlbumDB.loadAlbums();
 
         albumListView.getItems().clear();
         albumListView.setItems(albums);
@@ -51,7 +54,7 @@ public class AccueilController {
     }
 
     
-    private Scene loadCreation(Album album) throws IOException {
+    public Scene loadCreation(Album album) throws IOException {
         //Album album = albumTest();
         //Album album = AlbumDB.loadAlbum(albumName);
         FXMLLoader loader = new FXMLLoader();
@@ -62,17 +65,24 @@ public class AccueilController {
             System.exit(1);
         }
         
-        MainWindowController mw = new MainWindowController(album);
+        MainWindowController mw = new MainWindowController();
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
         RepositoryController rc = new RepositoryController(album,ba);
+        MenuController mc = new MenuController(album);
+
         ba.addObserver(oc);
+        
+        mc.addObserver(ba);
+        mc.addObserver(oc);
+        mc.addObserver(rc);
 
         loader.setControllerFactory(controllerClass -> {
             if (controllerClass.equals(MainWindowController.class)) return mw;
             else if (controllerClass.equals(OverviewController.class)) return oc;
             else if (controllerClass.equals(BrowseAlbumController.class)) return ba;
             else if (controllerClass.equals(RepositoryController.class)) return rc;
+            else if (controllerClass.equals(MenuController.class)) return mc;
             return null; 
         });
 
@@ -80,27 +90,38 @@ public class AccueilController {
         loader.setLocation(fxmlURL);
         Parent root = loader.load();
 
+        Stage stage = (Stage) label.getScene().getWindow();
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Voulez-vous sauvegarder les modifications ?");
+                alert.setContentText("Si vous quittez sans sauvegarder, les modifications seront perdues.");
+
+                // Affiche les boutons "Oui" et "Non"
+                ButtonType yesButton = ButtonType.YES;
+                ButtonType noButton = ButtonType.NO;
+                alert.getButtonTypes().setAll(yesButton, noButton);
+
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == yesButton) {
+                        AlbumDB.saveAlbum(album); 
+                        Platform.exit(); 
+                    } else {
+                        Platform.exit(); 
+                    }
+                });
+            }
+        });
+
         return new Scene(root);
     }
 
+   
     
-
-    private ObservableList<String> loadAlbums() {
-        // Simuler le chargement des albums depuis un répertoire
-        File albumDir = new File("./src/main/resources/albums/");
-        File[] files = albumDir.listFiles(); 
-        System.out.println(files);
-
-        ObservableList<String> albumNames = FXCollections.observableArrayList();
-        if (files != null) {
-            for (File file : files) {
-                albumNames.add(file.getName()); 
-            }
-        }
-        return albumNames;
-    }
-    
-    private void gotoCreation(String albumName) throws IOException{
+    public void gotoCreation(String albumName) throws IOException{
         Stage stage = (Stage) button.getScene().getWindow();  
         Album album = AlbumDB.loadAlbum(albumName);
 
