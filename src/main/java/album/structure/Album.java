@@ -76,6 +76,10 @@ public class Album implements Serializable {
         return pages.get(currentPageIndex);
     }
 
+    public void setCurrentPage(int newPageIndex) {
+        currentPageIndex = newPageIndex;
+    }
+
     public void setName(String name){
         this.name = name;
         modified = true;

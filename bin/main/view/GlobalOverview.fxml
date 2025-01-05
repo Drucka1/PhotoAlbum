@@ -11,5 +11,4 @@
             <FlowPane fx:id="flowPane" hgap="10" vgap="10"/>
         </content>
     </ScrollPane>
-    <Button text="Back" fx:id="back" onAction="#handleBack"/>
 </VBox>

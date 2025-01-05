@@ -21,10 +21,14 @@ public class OverviewController implements ObserverInterface {
     
     private Album album;
 
+
+    private BrowseAlbumController ba;
+
     public OverviewController() {}
 
-    public OverviewController(Album album){
+    public OverviewController(Album album, BrowseAlbumController ba){
         this.album = album;
+        this.ba = ba;
     }
 
     public void changeAlbum(Album album){
@@ -67,7 +71,7 @@ public class OverviewController implements ObserverInterface {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GlobalOverview.fxml"));
 
-        GlobalOverviewController go = new GlobalOverviewController(album,flowPane.getScene());
+        GlobalOverviewController go = new GlobalOverviewController(album,flowPane.getScene(),ba);
         loader.setControllerFactory(controllerClass -> go);
 
 

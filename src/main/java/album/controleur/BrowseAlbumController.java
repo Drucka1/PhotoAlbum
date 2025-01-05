@@ -59,6 +59,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
 
     public void update() {
         albumName.setText(album.getName());
+        progression.setText("Page "+(album.currentIndex()+1)+" sur "+album.size());
         Page currentPage = album.getCurrentPage();
 
         if (currentPage.getLeft() != null) {

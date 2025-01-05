@@ -148,7 +148,6 @@ public class MenuController implements ObservableInterface{
         asfForSave();
         String name = askForAlbumName().orElse(null);
         String path = askForPath();
-        System.out.println("Path : "+path+ "name : "+name);
         album = new Album(name, path);
         album.setModified(true);
         notifyObserverChangeAlbum();

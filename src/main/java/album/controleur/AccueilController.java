@@ -82,8 +82,8 @@ public class AccueilController {
         }
         
         MainWindowController mw = new MainWindowController();
-        OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
+        OverviewController oc = new OverviewController(album,ba);
         RepositoryController rc = new RepositoryController(album,ba);
         MenuController mc = new MenuController(album,oc);
 
