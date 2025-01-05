@@ -47,3 +47,11 @@ javafx {
 application {
     mainClass.set("album.Main")
 }
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'album.Main'  // Remplacez par le nom de votre classe principale
+        )
+    }
+}

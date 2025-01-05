@@ -38,7 +38,6 @@ public class AlbumDB {
     public static ObservableList<Pair<String, Integer>> loadAlbums() {
         File albumDir = new File(path);
         File[] files = albumDir.listFiles(); 
-        System.out.println(files);
 
         ObservableList<Pair<String, Integer>> albumNames = FXCollections.observableArrayList();
         if (files != null) {
