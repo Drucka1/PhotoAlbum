@@ -45,9 +45,7 @@
 
         <HBox spacing="10" alignment="CENTER">
             <children>
-                <Button fx:id="addLeft" text="Add Left" onAction="#handleAddLeft"/>
                 <Button fx:id="delLeft" text="Del Left" onAction="#handleDelLeft"/>
-                <Button fx:id="addRight" text="Add Right" onAction="#handleAddRight"/>
                 <Button fx:id="delRight" text="Del Right" onAction="#handleDelRight"/>
             </children>
         </HBox>

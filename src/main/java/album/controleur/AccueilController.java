@@ -64,7 +64,7 @@ public class AccueilController {
         MainWindowController mw = new MainWindowController(album);
         OverviewController oc = new OverviewController(album);
         BrowseAlbumController ba = new BrowseAlbumController(album);
-        RepositoryController rc = new RepositoryController(album);
+        RepositoryController rc = new RepositoryController(album,ba);
         ba.addObserver(oc);
 
         loader.setControllerFactory(controllerClass -> {
