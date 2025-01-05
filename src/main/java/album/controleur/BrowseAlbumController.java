@@ -58,6 +58,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
     }
 
     public void update() {
+        albumName.setText(album.getName());
         Page currentPage = album.getCurrentPage();
 
         if (currentPage.getLeft() != null) {
@@ -137,8 +138,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
         askForPhotoName().ifPresent(imageName -> {
             Image image = new Image(imagePath);
 
-            Page page = album.getCurrentPage();
-            page.setLeft(new Photo(imageName, image.getUrl()));
+            album.setLeft(new Photo(imageName, image.getUrl()));
 
             imageL.setImage(image);
             nameL.setText(imageName); 
@@ -149,8 +149,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
     }
 
     public void handleDelLeft() {
-        Page page = album.getCurrentPage();
-        page.setLeft(null);
+        album.setLeft(null);
         update();
         notifyObserver();
     }
@@ -160,8 +159,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
         askForPhotoName().ifPresent(imageName -> {
             Image image = new Image(imagePath);
 
-            Page page = album.getCurrentPage();
-            page.setRight(new Photo(imageName, image.getUrl()));
+            album.setRight(new Photo(imageName, image.getUrl()));
 
             imageR.setImage(image);
             nameR.setText(imageName); 
@@ -172,8 +170,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
     }
 
     public void handleDelRight() {
-        Page page = album.getCurrentPage();
-        page.setRight(null);
+        album.setRight(null);
         update();
         notifyObserver();
     }

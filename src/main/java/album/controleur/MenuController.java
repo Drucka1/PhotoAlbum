@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class MenuController implements ObservableInterface{
 
@@ -46,16 +47,16 @@ public class MenuController implements ObservableInterface{
 
     @FXML
     public void initialize() {
-        ObservableList<String> albumNames = AlbumDB.loadAlbums();
+        ObservableList<Pair<String, Integer>> albumNameIds = AlbumDB.loadAlbums();
         
-        for (String albumName : albumNames) {
-            MenuItem albumItem = new MenuItem(albumName);
+        for (Pair<String, Integer> albumNameId : albumNameIds) {
+            MenuItem albumItem = new MenuItem(albumNameId.getKey());
 
             albumItem.setOnAction(event -> {
 
                 asfForSave();
-                album = AlbumDB.loadAlbum(albumName);
-                notifyObserver();
+                album = AlbumDB.loadAlbum(""+albumNameId.getValue());
+                notifyObserverChangeAlbum();
 
             });
 
@@ -68,33 +69,41 @@ public class MenuController implements ObservableInterface{
         obs.add(observer);
     }
 
-    public void notifyObserver(){
+    public void notifyObserverChangeAlbum(){
         for (ObserverInterface observer : obs){
             observer.changeAlbum(album);
         }
     }
 
+    public void notifyObserver(){
+        for (ObserverInterface observer : obs){
+            observer.update();
+        }
+    }
+
     private void asfForSave(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Voulez-vous sauvegarder les modifications ?");
-        alert.setContentText("Si vous quittez sans sauvegarder, les modifications seront perdues.");
+        if (album.isModified()){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Voulez-vous sauvegarder les modifications ?");
+            alert.setContentText("Si vous quittez sans sauvegarder, les modifications seront perdues.");
 
-        ButtonType yesButton = ButtonType.YES;
-        ButtonType noButton = ButtonType.NO;
-        alert.getButtonTypes().setAll(yesButton, noButton);
+            ButtonType yesButton = ButtonType.YES;
+            ButtonType noButton = ButtonType.NO;
+            alert.getButtonTypes().setAll(yesButton, noButton);
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == yesButton) {
-                AlbumDB.saveAlbum(album); 
+            alert.showAndWait().ifPresent(response -> {
+                if (response == yesButton) {
+                    AlbumDB.saveAlbum(album); 
+                }
                 
-            } 
-        });
+            });
+        }
     }
 
     @FXML
     public void handleAcceuil() throws IOException{
-        AlbumDB.saveAlbum(album);
+        asfForSave();
         loadAcceuil();
     }
     
@@ -107,7 +116,7 @@ public class MenuController implements ObservableInterface{
     @FXML 
     public void handleSetAlbumName(){
         askForAlbumName().ifPresent( newName -> album.setName(newName));
-        //update
+        notifyObserver();
     }
 
     private Optional<String> askForAlbumName(){
@@ -141,7 +150,8 @@ public class MenuController implements ObservableInterface{
         String path = askForPath();
         System.out.println("Path : "+path+ "name : "+name);
         album = new Album(name, path);
-        notifyObserver();
+        album.setModified(true);
+        notifyObserverChangeAlbum();
     }
     
     private String askForPath(){
@@ -165,7 +175,7 @@ public class MenuController implements ObservableInterface{
 
     @FXML
     public void handleDel() throws IOException{
-        AlbumDB.deleteAlbum(album.getName());
+        AlbumDB.deleteAlbum(album.getId());
         loadAcceuil();
         
     }

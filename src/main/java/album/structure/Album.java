@@ -10,10 +10,12 @@ import java.util.LinkedList;
 
 public class Album implements Serializable {
 
+    private int id;
     private String name; 
     private LinkedList<Page> pages;
     private int currentPageIndex;
     private String directoryPath;
+    private Boolean modified;
 
     public Album(String name,String path) {
         this.name = name;
@@ -21,23 +23,42 @@ public class Album implements Serializable {
         pages.add(new Page(null));
         this.currentPageIndex = 0;
         directoryPath = path;
+        modified = false;
+        id = this.hashCode();
     }
 
-    public void addPhoto(Photo photo) {
-        if (pages.size() > 0 && pages.getLast().getRight() == null){
-            pages.getLast().setRight(photo);
-        }
-        else pages.addLast(new Page(photo));
+    public Boolean isModified(){
+        return modified;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void addPage(Page page) {
         pages.addLast(page);
+        modified = true;
+    }
+
+    public void setLeft(Photo newLeft){
+        getCurrentPage().setLeft(newLeft);
+        modified = true;
+    }
+
+    public void setRight(Photo newRight){
+        getCurrentPage().setRight(newRight);
+        modified = true;
+    }
+
+    public void setModified(Boolean bool){
+        modified = bool;
     }
 
     public void removePage() {
         if (pages.size() > 1){
             
             pages.remove(currentPageIndex);
+            modified = true;
 
             if (currentPageIndex == pages.size()) currentPageIndex -= 1;
            
@@ -57,6 +78,7 @@ public class Album implements Serializable {
 
     public void setName(String name){
         this.name = name;
+        modified = true;
     }
 
     public List<Page> getPages() {
@@ -101,6 +123,7 @@ public class Album implements Serializable {
 
     public void setDirectoryPath(String newPath){
         directoryPath = newPath;
+        modified = true;
     }
 
 }

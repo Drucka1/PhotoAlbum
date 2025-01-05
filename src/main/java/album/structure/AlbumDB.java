@@ -9,21 +9,24 @@ import java.io.ObjectOutputStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 public class AlbumDB {
 
     private static String path = "./src/main/resources/albums/";
 
     public static void saveAlbum(Album album) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path+album.getName()))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path+album.getId()))) {
+            album.setModified(false);
             oos.writeObject(album);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static Album loadAlbum(String name) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path+name))) {
+    public static Album loadAlbum(String albumId) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path+albumId))) {
             Album album = (Album) ois.readObject();
             return album;
         } catch (IOException | ClassNotFoundException e) {
@@ -32,35 +35,26 @@ public class AlbumDB {
         return null;
     }
 
-    public static ObservableList<String> loadAlbums() {
-        File albumDir = new File("./src/main/resources/albums/");
+    public static ObservableList<Pair<String, Integer>> loadAlbums() {
+        File albumDir = new File(path);
         File[] files = albumDir.listFiles(); 
         System.out.println(files);
 
-        ObservableList<String> albumNames = FXCollections.observableArrayList();
+        ObservableList<Pair<String, Integer>> albumNames = FXCollections.observableArrayList();
         if (files != null) {
             for (File file : files) {
-                albumNames.add(file.getName()); 
+                Album tmp = AlbumDB.loadAlbum(file.getName());
+                albumNames.add( new Pair<>(tmp.getName(),tmp.getId()) ); 
             }
         }
         return albumNames;
     }
 
-    public static boolean deleteAlbum(String albumName) {
-        File albumFile = new File(path + albumName);
+    public static void deleteAlbum(int albumId) {
+        File albumFile = new File(path + albumId);
 
-        // Vérifier si le fichier existe
         if (albumFile.exists()) {
-            boolean deleted = albumFile.delete(); // Supprimer le fichier
-            if (deleted) {
-                System.out.println("L'album a été supprimé : " + albumName);
-            } else {
-                System.out.println("Erreur lors de la suppression de l'album : " + albumName);
-            }
-            return deleted;
-        } else {
-            System.out.println("L'album n'existe pas : " + albumName);
-            return false;
+           albumFile.delete(); 
         }
     }
 }

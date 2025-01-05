@@ -18,34 +18,50 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 
 public class AccueilController {
 
     @FXML private Button button;
     @FXML private Label label;
-    @FXML private ListView<String> albumListView;
+    @FXML private ListView<Pair<String, Integer>> albumListView;
 
     public AccueilController(){}
 
     @FXML
     public void initialize() {
 
-        ObservableList<String> albums = AlbumDB.loadAlbums();
+        ObservableList<Pair<String, Integer>> albums = AlbumDB.loadAlbums();
 
         albumListView.getItems().clear();
+
+        albumListView.setCellFactory(param -> new ListCell<Pair<String, Integer>>() {
+            @Override
+            protected void updateItem(Pair<String, Integer> item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    setText(item.getKey()); 
+                } else {
+                    setText(null);
+                }
+            }
+        });
+
+
         albumListView.setItems(albums);
 
         albumListView.setOnMouseClicked(event -> {
-            String selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
+            Pair<String, Integer> selectedAlbum = albumListView.getSelectionModel().getSelectedItem();
             if (selectedAlbum != null) {
                 try {
-                    gotoCreation(selectedAlbum);
+                    gotoCreation(""+selectedAlbum.getValue());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -95,24 +111,25 @@ public class AccueilController {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Voulez-vous sauvegarder les modifications ?");
-                alert.setContentText("Si vous quittez sans sauvegarder, les modifications seront perdues.");
+                if (album.isModified()){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Voulez-vous sauvegarder les modifications ?");
+                    alert.setContentText("Si vous quittez sans sauvegarder, les modifications seront perdues.");
 
-                // Affiche les boutons "Oui" et "Non"
-                ButtonType yesButton = ButtonType.YES;
-                ButtonType noButton = ButtonType.NO;
-                alert.getButtonTypes().setAll(yesButton, noButton);
+                    // Affiche les boutons "Oui" et "Non"
+                    ButtonType yesButton = ButtonType.YES;
+                    ButtonType noButton = ButtonType.NO;
+                    alert.getButtonTypes().setAll(yesButton, noButton);
 
-                alert.showAndWait().ifPresent(response -> {
-                    if (response == yesButton) {
-                        AlbumDB.saveAlbum(album); 
-                        Platform.exit(); 
-                    } else {
-                        Platform.exit(); 
-                    }
-                });
+                    alert.showAndWait().ifPresent(response -> {
+                        if (response == yesButton) {
+                            AlbumDB.saveAlbum(album); 
+                        }
+                    });
+                    Platform.exit(); 
+                }
+                
             }
         });
 
@@ -149,8 +166,9 @@ public class AccueilController {
 
         String name = askForAlbumName();
         String path = askForPath();
-        System.out.println("Path : "+path+ "name : "+name);
-        if (name != null && path != null) stage.setScene(loadCreation(new Album(name, path)));
+        Album album = new Album(name, path);
+        album.setModified(true);
+        if (name != null && path != null) stage.setScene(loadCreation(album));
     }
 
     private String askForAlbumName(){
