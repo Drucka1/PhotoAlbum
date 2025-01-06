@@ -50,7 +50,6 @@ public class RepositoryController implements ObserverInterface{
         flowPane.getChildren().clear();
         for (File image : getImagesFromDirectory()){
             String imagePath = image.toURI().toString(); 
-            System.err.println(imagePath);
 
             ImageView imageView = new ImageView(new Image(imagePath));
             imageView.setPreserveRatio(true);

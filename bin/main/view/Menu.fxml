@@ -11,11 +11,15 @@
         <MenuItem text="Sauvegarder l'album" onAction="#handleSave"/>
         <MenuItem text="Supprimer l'album" onAction="#handleDel"/>
         <Menu text="Autre album" fx:id="otherAlbum"/>
-        <MenuItem text="Quitter" onAction="#handleQuit"/>
     </Menu>
     <Menu text="Outils">
         <MenuItem text="Nom de l'album" onAction="#handleSetAlbumName"/>
         <MenuItem text="Mode Vignettes" onAction="#handleGlobalOverview"/>
-        <MenuItem fx:id="acceuil" text="acceuil" onAction="#handleAcceuil"/>
+        <MenuItem text="Changer le répertoire" onAction="#handleChangeDirectoy"/>
+        <MenuItem text="Rafraichir le répertoire" onAction="#handleRefreshDirectoy"/>
     </Menu>
+    <Menu text="Application">
+    <MenuItem text="Retour à l'acceuil" onAction="#handleAcceuil"/>
+    <MenuItem text="Quitter" onAction="#handleQuit"/>
+</Menu>
 </MenuBar>

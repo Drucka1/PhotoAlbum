@@ -35,14 +35,16 @@ public class MenuController implements ObservableInterface{
 
     private List<ObserverInterface> obs = new ArrayList<>();
     private OverviewController oc;
+    private RepositoryController rc;
 
     private Album album;
 
     public MenuController(){}
 
-    public MenuController(Album album,OverviewController oc){
+    public MenuController(Album album,OverviewController oc,RepositoryController rc){
         this.album = album;
         this.oc = oc;
+        this.rc = rc;
     }
 
     @FXML
@@ -190,4 +192,13 @@ public class MenuController implements ObservableInterface{
         stage.setOnCloseRequest(null);
     }
 
+    @FXML 
+    public void handleChangeDirectoy(){
+        rc.changeDirectory();
+    }
+    
+    @FXML 
+    public void handleRefreshDirectoy(){
+        rc.update();
+    }
 }

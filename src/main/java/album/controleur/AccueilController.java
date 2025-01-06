@@ -85,7 +85,7 @@ public class AccueilController {
         BrowseAlbumController ba = new BrowseAlbumController(album);
         OverviewController oc = new OverviewController(album,ba);
         RepositoryController rc = new RepositoryController(album,ba);
-        MenuController mc = new MenuController(album,oc);
+        MenuController mc = new MenuController(album,oc,rc);
 
         ba.addObserver(oc);
         

@@ -17,7 +17,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Bootstrap Project using FXML");
+        primaryStage.setTitle("Album Creation");
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
@@ -25,7 +25,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-    
 
 }
