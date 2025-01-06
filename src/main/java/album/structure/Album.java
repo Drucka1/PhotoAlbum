@@ -129,5 +129,4 @@ public class Album implements Serializable {
         directoryPath = newPath;
         modified = true;
     }
-
 }

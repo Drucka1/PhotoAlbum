@@ -32,4 +32,12 @@ public class Page implements Serializable {
     public void setRight(Photo newRight){
         this.right = newRight;
     }
+
+    public void setLeftName(String name){
+        left.setName(name);
+    }
+
+    public void setRightName(String name){
+        right.setName(name);
+    }
 }

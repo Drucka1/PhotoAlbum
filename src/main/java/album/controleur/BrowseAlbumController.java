@@ -206,7 +206,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
 
     public void changeNameLeft(){
         askForPhotoName().ifPresent(imageName -> {
-            nameL.setText(imageName);
+            album.getCurrentPage().setLeftName(imageName);
         });
         update();
         notifyObserver();
@@ -214,7 +214,7 @@ public class BrowseAlbumController implements ObservableInterface,ObserverInterf
 
     public void changeNameRight(){
         askForPhotoName().ifPresent(imageName -> {
-            nameR.setText(imageName);
+            album.getCurrentPage().setRightName(imageName);
         });
         update();
         notifyObserver();
