@@ -30,8 +30,7 @@ Avant d'exécuter ce projet, assurez-vous d'avoir les outils suivants installés
     java --module-path JAVAFX_PATH/lib --add-modules javafx.controls,javafx.fxml,javafx.media -jar lab2-e4206u.jar
     ```
 
-# CodingWeek 2025
-**TELECOM Nancy - 06/01 to 10/01**
+# Lab #2 - Photo Album
 
 ## Description
 
